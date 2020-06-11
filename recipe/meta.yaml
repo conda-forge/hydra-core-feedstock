@@ -1,13 +1,13 @@
 {% set name = "hydra-core" %}
-{% set version = "0.11.3" %}
+{% set version = "1.0.0rc1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://github.com/facebookresearch/hydra/archive/{{ version }}.tar.gz
-  sha256: 6d5b15297f486cf0a36fc7f5c8640004896ae3b878e8d236872fc0d74e823d4d
+  url: https://github.com/facebookresearch/hydra/archive/hydra-{{ version }}.tar.gz
+  sha256: 4b3d3aec618d7d4c84df517310b2fe5b71c9c3c3f4e0f6f31929d9a711da472b
 
 build:
   noarch: python
@@ -20,8 +20,7 @@ requirements:
     - pip
   run:
     - python
-    - omegaconf >=1.4,<1.5
-    - typing-extensions
+    - omegaconf >=2.0.1rc6
 
 test:
   imports:
