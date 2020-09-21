@@ -1,18 +1,18 @@
 {% set name = "hydra-core" %}
-{% set version = "0.11.3" %}
+{% set version = "1.0.2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://github.com/facebookresearch/hydra/archive/{{ version }}.tar.gz
-  sha256: 6d5b15297f486cf0a36fc7f5c8640004896ae3b878e8d236872fc0d74e823d4d
+  url: https://github.com/facebookresearch/hydra/archive/v{{ version }}.tar.gz
+  sha256: 81f7128bfd42a538f8dd4e719f54ff87887936ce3d8a7f56ff126c8ffb988097
 
 build:
   noarch: python
   number: 0
-  script: "{{ PYTHON }} -m pip install . -vv"
+  script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
@@ -42,7 +42,7 @@ about:
   license: MIT
   license_family: MIT
   license_file: LICENSE
-  summary: 'A framework for elegantly configuring complex applications'
+  summary: A framework for elegantly configuring complex applications
   doc_url: https://hydra.cc/docs/intro/
   dev_url: https://github.com/facebookresearch/hydra
 
