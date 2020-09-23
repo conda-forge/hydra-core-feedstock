@@ -5,7 +5,7 @@ Home: https://hydra.cc/
 
 Package license: MIT
 
-Feedstock license: BSD 3-Clause
+Feedstock license: BSD-3-Clause
 
 Summary: A framework for elegantly configuring complex applications
 
