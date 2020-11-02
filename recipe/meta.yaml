@@ -24,6 +24,7 @@ requirements:
     - python >=3.6,<3.9
     - omegaconf >=2.0.2
     - antlr-python-runtime ==4.8
+    - importlib_resources
 
 test:
   imports:
@@ -37,7 +38,7 @@ test:
     - pytest.ini
     - ATTRIBUTION
   commands:
-    - pytest
+    - pytest -v tests/
 
 about:
   home: https://hydra.cc/
