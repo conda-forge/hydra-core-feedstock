@@ -5,11 +5,13 @@ Home: https://hydra.cc/
 
 Package license: MIT
 
-Feedstock license: BSD 3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/hydra-core-feedstock/blob/master/LICENSE.txt)
 
 Summary: A framework for elegantly configuring complex applications
 
+Development: https://github.com/facebookresearch/hydra
 
+Documentation: https://hydra.cc/docs/intro/
 
 Current build status
 ====================
