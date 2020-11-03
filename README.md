@@ -118,5 +118,6 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
+* [@hadim](https://github.com/hadim/)
 * [@mdraw](https://github.com/mdraw/)
 
