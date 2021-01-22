@@ -22,7 +22,7 @@ requirements:
     - pip
   run:
     - python >=3.6,<3.10
-    - omegaconf >=2.0.2
+    - omegaconf >=2.0.5,<2.1
     - antlr-python-runtime ==4.8
     - importlib_resources
 
