@@ -18,14 +18,14 @@ build:
 
 requirements:
   build:
-    - antlr ==4.8
+    - antlr ==4.9
   host:
     - python >=3.6
     - pip
   run:
     - python >=3.6
     - omegaconf ==2.1.*
-    - antlr-python-runtime ==4.8
+    - antlr-python-runtime ==4.9
 
     # importlib_resources is only needed for Python 3.9, but can't
     # specify that with `noarch`
