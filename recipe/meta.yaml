@@ -11,21 +11,21 @@ source:
 
 build:
   noarch: python
-  number: 1
+  number: 2
   script:
     - {{ PYTHON }} setup.py antlr
     - {{ PYTHON }} -m pip install . -vv
 
 requirements:
   build:
-    - antlr ==4.9
+    - antlr ==4.8
   host:
     - python >=3.6
     - pip
   run:
     - python >=3.6
     - omegaconf ==2.1.*
-    - antlr-python-runtime ==4.9
+    - antlr-python-runtime ==4.8
 
     # importlib_resources is only needed for Python 3.9, but can't
     # specify that with `noarch`
