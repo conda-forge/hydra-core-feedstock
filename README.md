@@ -148,6 +148,5 @@ Feedstock Maintainers
 =====================
 
 * [@benjaminrwilson](https://github.com/benjaminrwilson/)
-* [@hadim](https://github.com/hadim/)
 * [@mdraw](https://github.com/mdraw/)
 
