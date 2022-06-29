@@ -1,5 +1,5 @@
 {% set name = "hydra-core" %}
-{% set version = "1.1.1" %}
+{% set version = "1.2.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/facebookresearch/hydra/archive/v{{ version }}.tar.gz
-  sha256: 03840c5192d47c3b0a4cf57e1815f8626d36f2fed81efed59202f6bd93ac822c
+  sha256: 19b203fc614426cd6e4bb7c51e73a25a1ceb4606450ec0203345aec67a0a4f6a
 
 build:
   noarch: python
@@ -18,16 +18,17 @@ build:
 
 requirements:
   build:
-    - antlr ==4.8
+    - antlr ==4.9.*
   host:
     - python >=3.6
     - pip
   run:
     - python >=3.6
-    - omegaconf ==2.1.*
-    - antlr-python-runtime ==4.8
+    - omegaconf ==2.2.*
+    - antlr-python-runtime ==4.9.*
+    - packaging
 
-    # importlib_resources is only needed for Python 3.9, but can't
+    # importlib_resources is only needed for Python <3.9, but can't
     # specify that with `noarch`
     - importlib_resources
 
@@ -43,7 +44,7 @@ test:
     - pytest.ini
     - ATTRIBUTION
   commands:
-    - pytest -v tests/
+    - pytest -v -W ignore::DeprecationWarning tests/
 
 about:
   home: https://hydra.cc/
@@ -57,5 +58,4 @@ about:
 extra:
   recipe-maintainers:
     - mdraw
-    - hadim
     - benjaminrwilson
