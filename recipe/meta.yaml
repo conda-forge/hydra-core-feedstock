@@ -24,7 +24,7 @@ requirements:
     - pip
   run:
     - python >=3.6
-    - omegaconf ==2.2.*
+    - omegaconf >=2.2,<2.4
     - antlr-python-runtime ==4.9.*
     - packaging
 
