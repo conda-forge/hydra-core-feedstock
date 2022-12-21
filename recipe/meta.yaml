@@ -1,5 +1,5 @@
 {% set name = "hydra-core" %}
-{% set version = "1.3.0" %}
+{% set version = "1.3.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/facebookresearch/hydra/archive/v{{ version }}.tar.gz
-  sha256: ff9679bb2af2c066bf369c26edd552467b6d759eef37840fbc59c8f729668ee2
+  sha256: 9ba1efe09893853e883498fcbeec17f2a77e1ba551587d6d0604077e02de1602
 
 build:
   noarch: python
