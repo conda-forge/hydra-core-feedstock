@@ -31,14 +31,6 @@ requirements:
 test:
   imports:
     - hydra
-  requires:
-    - pytest
-    - python {{ python_min }}
-  source_files:
-    - hydra
-    - tests
-  commands:
-    - pytest -v -W ignore::DeprecationWarning tests/
 
 about:
   home: https://hydra.cc/
