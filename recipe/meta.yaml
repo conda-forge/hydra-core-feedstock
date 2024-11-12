@@ -1,5 +1,5 @@
 {% set name = "hydra-core" %}
-{% set version = "1.3.2" %}
+{% set version = "1.4.0.dev1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/facebookresearch/hydra/archive/v{{ version }}.tar.gz
-  sha256: 3f0f14305e9c6ae4b1dbcba344fe09dd0fc79c0a0656470c249f4f7ca46bf471
+  sha256: 664e6755ea78f070b403df911fc460ea3464fdc59bd03affc0d6ffef9dd53221
 
 build:
   noarch: python
@@ -18,19 +18,14 @@ build:
 
 requirements:
   build:
-    - antlr ==4.9.*
+    - antlr ==4.11.*
   host:
-    - python >=3.6
+    - python >=3.9
     - pip
   run:
-    - python >=3.6
-    - omegaconf >=2.2,<2.4
-    - antlr-python-runtime ==4.9.*
+    - python >=3.9
+    - omegaconf >=2.4.0.dev2
     - packaging
-
-    # importlib_resources is only needed for Python <3.9, but can't
-    # specify that with `noarch`
-    - importlib_resources
 
 test:
   imports:
