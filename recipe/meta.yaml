@@ -35,9 +35,6 @@ test:
   source_files:
     - hydra
     - tests
-    - examples
-    - pytest.ini
-    - ATTRIBUTION
   commands:
     - pytest -v -W ignore::DeprecationWarning tests/
 
