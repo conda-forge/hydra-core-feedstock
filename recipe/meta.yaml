@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/facebookresearch/hydra/archive/v{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 664e6755ea78f070b403df911fc460ea3464fdc59bd03affc0d6ffef9dd53221
 
 build:
@@ -17,13 +17,12 @@ build:
     - {{ PYTHON }} -m pip install . -vv
 
 requirements:
-  build:
-    - antlr ==4.11.*
   host:
-    - python >=3.9
+    - python {{ python_min }}
     - pip
+    - setuptools
   run:
-    - python >=3.9
+    - python >={{ python_min }}
     - omegaconf >=2.4.0.dev2
     - packaging
 
@@ -32,6 +31,7 @@ test:
     - hydra
   requires:
     - pytest
+    - python {{ python_min }}
   source_files:
     - hydra
     - tests
