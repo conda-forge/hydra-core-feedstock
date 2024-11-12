@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/hydra_core-{{ version }}.tar.gz
   sha256: 664e6755ea78f070b403df911fc460ea3464fdc59bd03affc0d6ffef9dd53221
 
 build:
