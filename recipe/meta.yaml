@@ -31,6 +31,9 @@ requirements:
 test:
   imports:
     - hydra
+  requires:
+    - python {{ python_min }}
+    - pip
 
 about:
   home: https://hydra.cc/
