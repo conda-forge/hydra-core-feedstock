@@ -1,11 +1,11 @@
-About hydra-core
-================
+About hydra-core-feedstock
+==========================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/hydra-core-feedstock/blob/main/LICENSE.txt)
 
 Home: https://hydra.cc/
 
 Package license: MIT
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/hydra-core-feedstock/blob/main/LICENSE.txt)
 
 Summary: A framework for elegantly configuring complex applications
 
@@ -36,14 +36,14 @@ Current release info
 Installing hydra-core
 =====================
 
-Installing `hydra-core` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `hydra-core` from the `conda-forge/label/hydra-core_dev` channel can be achieved by adding `conda-forge/label/hydra-core_dev` to your channels with:
 
 ```
-conda config --add channels conda-forge
+conda config --add channels conda-forge/label/hydra-core_dev
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `hydra-core` can be installed with `conda`:
+Once the `conda-forge/label/hydra-core_dev` channel has been enabled, `hydra-core` can be installed with `conda`:
 
 ```
 conda install hydra-core
@@ -58,26 +58,26 @@ mamba install hydra-core
 It is possible to list all of the versions of `hydra-core` available on your platform with `conda`:
 
 ```
-conda search hydra-core --channel conda-forge
+conda search hydra-core --channel conda-forge/label/hydra-core_dev
 ```
 
 or with `mamba`:
 
 ```
-mamba search hydra-core --channel conda-forge
+mamba search hydra-core --channel conda-forge/label/hydra-core_dev
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search hydra-core --channel conda-forge
+mamba repoquery search hydra-core --channel conda-forge/label/hydra-core_dev
 
 # List packages depending on `hydra-core`:
-mamba repoquery whoneeds hydra-core --channel conda-forge
+mamba repoquery whoneeds hydra-core --channel conda-forge/label/hydra-core_dev
 
 # List dependencies of `hydra-core`:
-mamba repoquery depends hydra-core --channel conda-forge
+mamba repoquery depends hydra-core --channel conda-forge/label/hydra-core_dev
 ```
 
 
@@ -99,7 +99,7 @@ available continuous integration services. Thanks to the awesome service provide
 [CircleCI](https://circleci.com/), [AppVeyor](https://www.appveyor.com/),
 [Drone](https://cloud.drone.io/welcome), and [TravisCI](https://travis-ci.com/)
 it is possible to build and upload installable packages to the
-[conda-forge](https://anaconda.org/conda-forge) [Anaconda-Cloud](https://anaconda.org/)
+[conda-forge](https://anaconda.org/conda-forge) [anaconda.org](https://anaconda.org/)
 channel for Linux, Windows and OSX respectively.
 
 To manage the continuous integration and simplify feedstock maintenance
