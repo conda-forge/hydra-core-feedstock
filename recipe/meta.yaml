@@ -23,7 +23,7 @@ requirements:
     - setuptools
   run:
     - python >={{ python_min }}
-    - omegaconf >=2.4.0.dev2
+    - omegaconf >=2.4.0.dev3
     - packaging
 
 test:
