@@ -11,7 +11,7 @@ source:
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script:
     - {{ PYTHON }} setup.py antlr
     - {{ PYTHON }} -m pip install . -vv
@@ -20,10 +20,10 @@ requirements:
   build:
     - antlr ==4.9.*
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - omegaconf >=2.2,<2.4
     - antlr-python-runtime ==4.9.*
     - packaging
@@ -37,6 +37,7 @@ test:
     - hydra
   requires:
     - pytest
+    - python {{ python_min }}
   source_files:
     - hydra
     - tests
