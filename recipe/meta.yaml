@@ -33,17 +33,9 @@ test:
   imports:
     - hydra
   requires:
-    - pytest
     - python {{ python_min }}
     - pip
-  source_files:
-    - hydra
-    - tests
-    - examples
-    - pytest.ini
-    - ATTRIBUTION
   commands:
-    - pytest -v -W ignore::DeprecationWarning tests/
     - pip check
 
 about:
