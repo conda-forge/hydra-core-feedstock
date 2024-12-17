@@ -22,15 +22,12 @@ requirements:
   host:
     - python {{ python_min }}
     - pip
+    - setuptools
   run:
     - python >={{ python_min }}
     - omegaconf >=2.2,<2.4
     - antlr-python-runtime ==4.9.*
     - packaging
-
-    # importlib_resources is only needed for Python <3.9, but can't
-    # specify that with `noarch`
-    - importlib_resources
 
 test:
   imports:
@@ -38,6 +35,7 @@ test:
   requires:
     - pytest
     - python {{ python_min }}
+    - pip
   source_files:
     - hydra
     - tests
@@ -46,6 +44,7 @@ test:
     - ATTRIBUTION
   commands:
     - pytest -v -W ignore::DeprecationWarning tests/
+    - pip check
 
 about:
   home: https://hydra.cc/
