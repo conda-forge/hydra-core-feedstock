@@ -11,7 +11,7 @@ source:
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script:
     - {{ PYTHON }} setup.py antlr
     - {{ PYTHON }} -m pip install . -vv
@@ -20,31 +20,23 @@ requirements:
   build:
     - antlr ==4.9.*
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
+    - setuptools
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - omegaconf >=2.2,<2.4
     - antlr-python-runtime ==4.9.*
     - packaging
-
-    # importlib_resources is only needed for Python <3.9, but can't
-    # specify that with `noarch`
-    - importlib_resources
 
 test:
   imports:
     - hydra
   requires:
-    - pytest
-  source_files:
-    - hydra
-    - tests
-    - examples
-    - pytest.ini
-    - ATTRIBUTION
+    - python {{ python_min }}
+    - pip
   commands:
-    - pytest -v -W ignore::DeprecationWarning tests/
+    - pip check
 
 about:
   home: https://hydra.cc/
