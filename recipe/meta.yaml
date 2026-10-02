@@ -1,5 +1,7 @@
 {% set name = "hydra-core" %}
 {% set version = "1.3.7" %}
+# Hydra 1.3 is a legacy release; keep Python 3.10 support.
+{% set python_min = "3.10" %}
 
 package:
   name: {{ name|lower }}
