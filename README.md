@@ -1,7 +1,7 @@
 About hydra-core-feedstock
 ==========================
 
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/hydra-core-feedstock/blob/main/LICENSE.txt)
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/hydra-core-feedstock/blob/1.3_branch/LICENSE.txt)
 
 Home: https://hydra.cc/
 
@@ -21,7 +21,7 @@ Current build status
     <td>All platforms:</td>
     <td>
       <a href="https://github.com/conda-forge/hydra-core-feedstock/actions/workflows/conda-build.yml">
-        <img src="https://github.com/conda-forge/hydra-core-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
+        <img src="https://github.com/conda-forge/hydra-core-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=1.3_branch">
       </a>
     </td>
   </tr>
@@ -173,14 +173,15 @@ Updating hydra-core-feedstock
 If you would like to improve the hydra-core recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
-opportunity to confirm that the changes result in a successful build. Once
-merged, the recipe will be re-built and uploaded automatically to the
-`conda-forge` channel, whereupon the built conda packages will be available for
-everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/hydra-core-feedstock are
-immediately built and any created packages are uploaded, so PRs should be based
-on branches in forks, and branches in the main repository should only be used to
-build distinct package versions.
+opportunity to confirm that the changes result in a successful build.
+
+For Hydra 1.3 releases and rebuilds, target PRs at the `1.3_branch`
+release branch. After a merge, builds from this branch publish to
+`conda-forge`. Release candidates use the package-specific
+`hydra-core_rc` label; stable releases use the normal channel.
+
+Submit changes from a fork and target the appropriate branch. See
+[CONTRIBUTING.md](CONTRIBUTING.md) for branch and rerendering instructions.
 
 In order to produce a uniquely identifiable distribution:
  * If the version of a package **is not** being increased, please add or increase
