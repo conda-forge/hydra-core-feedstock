@@ -1,0 +1,3 @@
+# Preserve the existing Python minimum independently of global pinning.
+python_min:
+  - "3.10"

@@ -4,3 +4,13 @@ github:
   tooling_branch_name: main
 conda_build:
   pkg_format: '2'
+bot:
+  abi_migration_branches:
+    - 1.3_branch
+    - 1.4_branch
+  version_updates:
+    skip: true
+github_actions:
+  upload_packages: false
+azure:
+  upload_packages: false
