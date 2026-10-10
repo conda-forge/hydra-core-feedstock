@@ -231,6 +231,24 @@ Current release info
 Installing {{ package_name }}
 ==========={{ '=' * package_name|length }}
 
+{% if channel_label != "main" %}
+This branch publishes prereleases to `{{ channel_with_label }}`. Opt in for an
+individual installation while taking dependencies from `{{ channel_name }}`:
+
+```sh
+conda install -c {{ channel_with_label }} -c {{ channel_name }} {{ ' '.join(outputs) }}
+```
+
+With mamba:
+
+```sh
+mamba install -c {{ channel_with_label }} -c {{ channel_name }} {{ ' '.join(outputs) }}
+```
+
+To select a specific release candidate, append `=VERSION` to the package name.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for a versioned example. These commands
+leave your configured channels unchanged.
+{% else %}
 Installing `{{ package_name }}` from the `{{ channel_with_label }}` channel can be achieved by adding `{{ channel_with_label }}` to your channels with:
 
 ```
@@ -270,6 +288,8 @@ pixi global install {{ ' '.join(outputs) }}
 ```
 
 </details>
+
+{% endif %}
 
 Search package versions
 -----------------------
