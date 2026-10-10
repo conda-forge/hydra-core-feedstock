@@ -173,14 +173,14 @@ Updating hydra-core-feedstock
 If you would like to improve the hydra-core recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
-opportunity to confirm that the changes result in a successful build. Once
-merged, the recipe will be re-built and uploaded automatically to the
-`conda-forge` channel, whereupon the built conda packages will be available for
-everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/hydra-core-feedstock are
-immediately built and any created packages are uploaded, so PRs should be based
-on branches in forks, and branches in the main repository should only be used to
-build distinct package versions.
+opportunity to confirm that the changes result in a successful build.
+
+The `main` branch coordinates bot migrations and release-line maintenance;
+package uploads are disabled. For releases and rebuilds, use the matching
+release branch described in [CONTRIBUTING.md](CONTRIBUTING.md).
+
+Submit changes from a fork and target the appropriate branch. See
+[CONTRIBUTING.md](CONTRIBUTING.md) for branch and rerendering instructions.
 
 In order to produce a uniquely identifiable distribution:
  * If the version of a package **is not** being increased, please add or increase
