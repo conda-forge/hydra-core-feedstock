@@ -1,0 +1,407 @@
+{%- set channel = channel_targets[0].split(" ") -%}
+{%- set channel_name = channel[0] -%}
+{%- set channel_label = channel[1] -%}
+{%- if channel_label == "main" -%}
+{%- set channel_with_label = channel_name -%}
+{%- else -%}
+{%- set channel_with_label = channel_name ~ "/label/" ~ channel_label -%}
+{%- endif -%}
+{#-
+# -*- mode: jinja -*-
+-#}
+
+About {{ package_name }}-feedstock
+======{{ '=' * package_name|length }}==========
+
+Feedstock license: [BSD-3-Clause](https://github.com/{{ github.user_or_org }}/{{ github.repo_name }}/blob/{{ github.branch_name }}/LICENSE.txt)
+
+{% for output_name, about in package_about -%}
+{%- set license_url = about.license_url -%}
+{%- if package_about|length > 1 %}
+About {{ output_name }}
+------{{ '-' * output_name|length }}
+
+{% endif -%}
+
+{%- if about.home -%}
+Home: {{ about.home }}
+{%- endif %}
+
+Package license: {% if license_url %}[{% endif %}{{ about.license }}{% if license_url %}]({{ license_url }}){% endif -%}
+
+{%- if about.summary %}
+
+Summary: {{ about.summary }}
+{%- endif %}
+{%- if about.dev_url %}
+
+Development: {{ about.dev_url }}
+{%- endif %}
+{%- if about.doc_url %}
+
+Documentation: {{ about.doc_url }}
+{%- endif %}
+{%- if about.description %}
+
+{{ about.description }}
+{%- endif %}
+{% endfor %}
+Current build status
+====================
+{%- set appveyor_url_name = github.repo_name.replace('_', '-').replace('.', '-') %}
+{%- set shield = "https://img.shields.io/" %}
+{#  Due to github's markdown rendering within tables being a bit shaky, we have to fall back to an HTML table here since we wish
+  to use a <details> tag.  Markdown rendering within html tables is weird and only works if you make EVERYTHING a paragraph which
+  looks terrible.  This is the lesser of the evils.
+#}
+
+<table>
+{%- if noarch_python -%}
+  {%- if circle.enabled -%}
+  <tr>
+    <td>All platforms:</td>
+    <td>
+      <a href="https://circleci.com/gh/{{ github.user_or_org }}/{{ github.repo_name }}">
+        <img src="{{ shield }}circleci/project/github/{{ github.user_or_org }}/{{ github.repo_name }}/{{ github.branch_name }}.svg?label=noarch">
+      </a>
+    </td>
+  </tr>
+  {%- elif github_actions.enabled -%}
+  <tr>
+    <td>All platforms:</td>
+    <td>
+      <a href="https://github.com/{{ github.user_or_org }}/{{ github.repo_name }}/actions/workflows/conda-build.yml">
+        <img src="https://github.com/{{ github.user_or_org }}/{{ github.repo_name }}/actions/workflows/conda-build.yml/badge.svg?event=push&branch={{ github.branch_name }}">
+      </a>
+    </td>
+  </tr>
+  {%- elif azure.enabled -%}
+  <tr>
+    {#- Sample url #-}
+    {#- [![Azure Status](https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cryptography-feedstock?branchName=master)](https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=195&branchName=master) -#}
+    {%- set azure_url %}https://dev.azure.com/{{ azure.user_or_org }}/{{ azure.project_name }}/_build/latest?definitionId={{ azure.build_id }}&branchName={{ github.branch_name }}{%- endset -%}
+    {%- set azure_image_url %}https://dev.azure.com/{{ azure.user_or_org }}/{{ azure.project_name }}/_apis/build/status/{{ github.repo_name }}?branchName={{ github.branch_name }}{%- endset -%}
+    <td>All platforms:</td>
+    <td>
+      <a href="{{ azure_url }}">
+        <img src="{{ azure_image_url }}">
+      </a>
+    </td>
+  </tr>
+  {%- else -%}
+  <tr>
+    <td>All platforms:</td>
+    <td>
+      <img src="{{ shield }}badge/noarch-disabled-lightgrey.svg" alt="noarch disabled">
+    </td>
+  </tr>
+  {%- endif -%}
+{%- else -%}
+  {%- if circle.enabled -%}
+  <tr>
+    <td>CircleCI</td>
+    <td>
+      <a href="https://circleci.com/gh/{{ github.user_or_org }}/{{ github.repo_name }}">
+        <img alt="{{ circle.platforms }}" src="{{ shield }}circleci/project/github/{{ github.user_or_org }}/{{ github.repo_name }}/{{ github.branch_name }}.svg?label={{ circle.platforms }}">
+      </a>
+    </td>
+  </tr>
+  {%- endif -%}
+  {%- if travis.enabled -%}
+  <tr>
+    <td>Travis</td>
+    <td>
+      <a href="https://app.travis-ci.com/{{ github.user_or_org }}/{{ github.repo_name }}">
+        <img alt="linux" src="{{ shield }}travis/com/{{ github.user_or_org }}/{{ github.repo_name }}/{{ github.branch_name }}.svg?label=Linux">
+      </a>
+    </td>
+  </tr>
+  {%- endif -%}
+  {%- if drone.enabled -%}
+  <tr>
+    <td>Drone</td>
+    <td>
+      <a href="https://cloud.drone.io/{{ github.user_or_org }}/{{ github.repo_name }}">
+        <img alt="linux" src="{{ shield }}drone/build/{{ github.user_or_org }}/{{ github.repo_name }}/{{ github.branch_name }}.svg?label=Linux">
+      </a>
+    </td>
+  </tr>
+  {%- endif -%}
+  {%- if appveyor.enabled -%}
+  <tr>
+    <td>Appveyor</td>
+    <td>
+      <a href="https://ci.appveyor.com/project/{{ github.user_or_org }}/{{ appveyor_url_name }}/branch/{{ github.branch_name }}">
+        <img alt="windows" src="{{ shield }}appveyor/ci/{{ github.user_or_org }}/{{ appveyor_url_name }}/{{ github.branch_name }}.svg?label=Windows">
+      </a>
+    </td>
+  </tr>
+  {%- endif -%}
+  {%- if github_actions.enabled -%}
+  <tr>
+    <td>GitHub Actions</td>
+    <td>
+      <a href="https://github.com/{{ github.user_or_org }}/{{ github.repo_name }}/actions/workflows/conda-build.yml">
+        <img src="https://github.com/{{ github.user_or_org }}/{{ github.repo_name }}/actions/workflows/conda-build.yml/badge.svg?event=push&branch={{ github.branch_name }}">
+      </a>
+    </td>
+  </tr>
+  {%- endif -%}
+  {%- if azure.enabled -%}
+    {#- Sample url #-}
+    {#- [![Azure Status](https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cryptography-feedstock?branchName=master)](https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=195&branchName=master) -#}
+    {% set azure_url %}https://dev.azure.com/{{ azure.user_or_org }}/{{ azure.project_name }}/_build/latest?definitionId={{ azure.build_id }}&branchName={{ github.branch_name }}{% endset %}
+    {% set azure_image_url %}https://dev.azure.com/{{ azure.user_or_org }}/{{ azure.project_name }}/_apis/build/status/{{ github.repo_name }}?branchName={{ github.branch_name }}{% endset %}
+  <tr>
+    <td>Azure</td>
+    <td>
+      <details>
+        <summary>
+          <a href="{{ azure_url }}">
+            <img src="{{ azure_image_url }}">
+          </a>
+        </summary>
+        <table>
+          <thead><tr><th>Variant</th><th>Status</th></tr></thead>
+          <tbody>
+          {%- for variant in variants -%}
+            {%- set variant_os = variant.split('_')[0] -%}
+            {%- set platform = variant.split('_')[:2] | join('_') -%}
+            {%- if "azure" in provider[platform] -%}
+            <tr>
+              <td>{{ variant.strip('_') }}</td>
+              <td>
+                <a href="{{ azure_url }}">
+                  <img src="{{ azure_image_url }}&jobName={{ variant_os }}&configuration={{ variant_os }}%20{{ variant }}" alt="variant">
+                </a>
+              </td>
+            </tr>
+            {%- endif -%}
+          {%- endfor %}
+          </tbody>
+        </table>
+      </details>
+    </td>
+  </tr>
+  {%- endif %}
+  {%- if not linux_64.enabled %}
+  <tr>
+    <td>Linux</td>
+    <td>
+      <img src="{{ shield }}badge/linux-disabled-lightgrey.svg" alt="linux disabled">
+    </td>
+  </tr>
+  {%- endif %}
+  {%- if not osx_64.enabled %}
+  <tr>
+    <td>OSX</td>
+    <td>
+      <img src="{{ shield }}badge/OSX-disabled-lightgrey.svg" alt="OSX disabled">
+    </td>
+  </tr>
+  {%- endif %}
+  {%- if not win_64.enabled %}
+  <tr>
+    <td>Windows</td>
+    <td>
+      <img src="{{ shield }}badge/Windows-disabled-lightgrey.svg" alt="Windows disabled">
+    </td>
+  </tr>
+  {%- endif %}
+  {%- if not linux_ppc64le.enabled %}
+  <tr>
+    <td>Linux_ppc64le</td>
+    <td>
+      <img src="{{ shield }}badge/ppc64le-disabled-lightgrey.svg" alt="ppc64le disabled">
+    </td>
+  </tr>
+  {%- endif %}
+{%- endif %}
+</table>
+
+Current release info
+====================
+
+| Name | Downloads | Version | Platforms |
+| --- | --- | --- | --- |
+{%- for output in outputs %}
+| [![Conda Recipe]({{ shield }}badge/recipe-{{ output.replace('-','--').replace('_','__') }}-green.svg)](https://anaconda.org/{{ channel_name }}/{{ output }}) | [![Conda Downloads]({{ shield }}conda/dn/{{ channel_name }}/{{ output }}.svg)](https://anaconda.org/{{ channel_name }}/{{ output }}) | [![Conda Version]({{ shield }}conda/vn/{{ channel_name }}/{{ output }}.svg)](https://anaconda.org/{{ channel_name }}/{{ output }}) | [![Conda Platforms]({{ shield }}conda/pn/{{ channel_name }}/{{ output }}.svg)](https://anaconda.org/{{ channel_name }}/{{ output }}) |
+{%- endfor %}
+
+Installing {{ package_name }}
+==========={{ '=' * package_name|length }}
+
+Installing `{{ package_name }}` from the `{{ channel_with_label }}` channel can be achieved by adding `{{ channel_with_label }}` to your channels with:
+
+```
+conda config --add channels {{ channel_with_label }}
+conda config --set channel_priority strict
+```
+
+How to use
+----------
+
+<details>
+<summary>With conda</summary>
+
+```
+conda install {{ ' '.join(outputs) }}
+```
+
+</details>
+
+<details>
+<summary>With mamba</summary>
+
+```
+mamba install {{ ' '.join(outputs) }}
+```
+
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+# for adding to your local project
+pixi add {{ ' '.join(outputs) }}
+# for installing globally
+pixi global install {{ ' '.join(outputs) }}
+```
+
+</details>
+
+Search package versions
+-----------------------
+
+It is possible to list all of the versions of `{{ outputs[0] }}` available on your platform:
+
+<details>
+<summary>With conda</summary>
+
+```
+conda search {{ outputs[0] }} --channel {{ channel_with_label }}
+```
+
+</details>
+
+<details>
+<summary>With mamba</summary>
+
+```
+mamba search {{ outputs[0] }} --channel {{ channel_with_label }}
+```
+
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+pixi search {{ outputs[0] }} --channel {{ channel_with_label }}
+```
+
+</details>
+
+<details>
+<summary>With mamba repoquery, which may provide more information</summary>
+
+```
+# Search all versions available on your platform:
+mamba repoquery search {{ outputs[0] }} --channel {{ channel_with_label }}
+
+# List packages depending on `{{ outputs[0] }}`:
+mamba repoquery whoneeds {{ outputs[0] }} --channel {{ channel_with_label }}
+
+# List dependencies of `{{ outputs[0] }}`:
+mamba repoquery depends {{ outputs[0] }} --channel {{ channel_with_label }}
+```
+
+</details>
+
+{% if channel_name == 'conda-forge' %}
+About conda-forge
+=================
+
+[![Powered by
+NumFOCUS](https://img.shields.io/badge/powered%20by-NumFOCUS-orange.svg?style=flat&colorA=E1523D&colorB=007D8A)](https://numfocus.org)
+
+conda-forge is a community-led conda channel of installable packages.
+In order to provide high-quality builds, the process has been automated into the
+conda-forge GitHub organization. The conda-forge organization contains one repository
+for each of the installable packages. Such a repository is known as a *feedstock*.
+
+A feedstock is made up of a conda recipe (the instructions on what and how to build
+the package) and the necessary configurations for automatic building using freely
+available continuous integration services. Thanks to the awesome service provided by
+[Azure](https://azure.microsoft.com/en-us/services/devops/), [GitHub](https://github.com/),
+[CircleCI](https://circleci.com/), [AppVeyor](https://www.appveyor.com/),
+[Drone](https://cloud.drone.io/welcome), and [TravisCI](https://travis-ci.com/)
+it is possible to build and upload installable packages to the
+[conda-forge](https://anaconda.org/conda-forge) [anaconda.org](https://anaconda.org/)
+channel for Linux, Windows and OSX respectively.
+
+To manage the continuous integration and simplify feedstock maintenance,
+[conda-smithy](https://github.com/conda-forge/conda-smithy) has been developed.
+Using the ``conda-forge.yml`` within this repository, it is possible to re-render all of
+this feedstock's supporting files (e.g. the CI configuration files) with ``conda smithy rerender``.
+
+For more information, please check the [conda-forge documentation](https://conda-forge.org/docs/).
+
+Terminology
+===========
+
+**feedstock** - the conda recipe (raw material), supporting scripts and CI configuration.
+
+**conda-smithy** - the tool which helps orchestrate the feedstock.
+                   Its primary use is in the construction of the CI ``.yml`` files
+                   and simplify the management of *many* feedstocks.
+
+**conda-forge** - the place where the feedstock and smithy live and work to
+                  produce the finished article (built conda distributions)
+{%- endif %}
+
+
+Updating {{ package_name }}-feedstock
+========={{ '=' * package_name|length }}==========
+
+If you would like to improve the {{ package_name }} recipe or build a new
+package version, please fork this repository and submit a PR. Upon submission,
+your changes will be run on the appropriate platforms to give the reviewer an
+opportunity to confirm that the changes result in a successful build.
+{% if github.branch_name == "main" %}
+The `main` branch coordinates bot migrations and release-line maintenance;
+package uploads are disabled. For releases and rebuilds, use the matching
+release branch described in [CONTRIBUTING.md](CONTRIBUTING.md).
+{% elif github.branch_name == "1.3_branch" %}
+For Hydra 1.3 releases and rebuilds, target PRs at the `1.3_branch`
+release branch. After a merge, builds from this branch publish to
+`{{ channel_with_label }}`. Release candidates use the package-specific
+`hydra-core_rc` label; stable releases use the normal channel.
+{% elif github.branch_name == "1.4_branch" %}
+For Hydra 1.4 releases and rebuilds, target PRs at the
+`1.4_branch` release branch. After a merge, builds from this branch publish
+to `{{ channel_with_label }}`. Release candidates use the package-specific
+`hydra-core_rc` label; stable releases use the normal channel. See
+[CONTRIBUTING.md](CONTRIBUTING.md) for switching the publication target.
+{% else %}
+Follow the branch-specific publishing policy in
+[CONTRIBUTING.md](CONTRIBUTING.md) when preparing a release or rebuild.
+{% endif %}
+Submit changes from a fork and target the appropriate branch. See
+[CONTRIBUTING.md](CONTRIBUTING.md) for branch and rerendering instructions.
+
+In order to produce a uniquely identifiable distribution:
+ * If the version of a package **is not** being increased, please add or increase
+   the [``build/number``](https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#build-number-and-string).
+ * If the version of a package **is** being increased, please remember to return
+   the [``build/number``](https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#build-number-and-string)
+   back to 0.
+
+Feedstock Maintainers
+=====================
+
+{% for (maintainer, url) in maintainers -%}
+* [@{{maintainer}}]({{url}})
+{% endfor %}
+{# this comment ensures a trailing newline #}

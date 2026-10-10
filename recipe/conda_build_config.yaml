@@ -1,0 +1,7 @@
+# Preserve the existing Python minimum independently of global pinning.
+python_min:
+  - "3.10"
+
+# Release candidates stay on a package-specific prerelease channel.
+channel_targets:
+  - conda-forge hydra-core_rc

@@ -1,7 +1,7 @@
 About hydra-core-feedstock
 ==========================
 
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/hydra-core-feedstock/blob/main/LICENSE.txt)
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/hydra-core-feedstock/blob/1.4_branch/LICENSE.txt)
 
 Home: https://hydra.cc/
 
@@ -9,7 +9,7 @@ Package license: MIT
 
 Summary: A framework for elegantly configuring complex applications
 
-Development: https://github.com/facebookresearch/hydra
+Development: https://github.com/hydra-ecosystem/hydra
 
 Documentation: https://hydra.cc/docs/intro/
 
@@ -21,7 +21,7 @@ Current build status
     <td>All platforms:</td>
     <td>
       <a href="https://github.com/conda-forge/hydra-core-feedstock/actions/workflows/conda-build.yml">
-        <img src="https://github.com/conda-forge/hydra-core-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
+        <img src="https://github.com/conda-forge/hydra-core-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=1.4_branch">
       </a>
     </td>
   </tr>
@@ -37,10 +37,10 @@ Current release info
 Installing hydra-core
 =====================
 
-Installing `hydra-core` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `hydra-core` from the `conda-forge/label/hydra-core_rc` channel can be achieved by adding `conda-forge/label/hydra-core_rc` to your channels with:
 
 ```
-conda config --add channels conda-forge
+conda config --add channels conda-forge/label/hydra-core_rc
 conda config --set channel_priority strict
 ```
 
@@ -86,7 +86,7 @@ It is possible to list all of the versions of `hydra-core` available on your pla
 <summary>With conda</summary>
 
 ```
-conda search hydra-core --channel conda-forge
+conda search hydra-core --channel conda-forge/label/hydra-core_rc
 ```
 
 </details>
@@ -95,7 +95,7 @@ conda search hydra-core --channel conda-forge
 <summary>With mamba</summary>
 
 ```
-mamba search hydra-core --channel conda-forge
+mamba search hydra-core --channel conda-forge/label/hydra-core_rc
 ```
 
 </details>
@@ -104,7 +104,7 @@ mamba search hydra-core --channel conda-forge
 <summary>With pixi</summary>
 
 ```
-pixi search hydra-core --channel conda-forge
+pixi search hydra-core --channel conda-forge/label/hydra-core_rc
 ```
 
 </details>
@@ -114,13 +114,13 @@ pixi search hydra-core --channel conda-forge
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search hydra-core --channel conda-forge
+mamba repoquery search hydra-core --channel conda-forge/label/hydra-core_rc
 
 # List packages depending on `hydra-core`:
-mamba repoquery whoneeds hydra-core --channel conda-forge
+mamba repoquery whoneeds hydra-core --channel conda-forge/label/hydra-core_rc
 
 # List dependencies of `hydra-core`:
-mamba repoquery depends hydra-core --channel conda-forge
+mamba repoquery depends hydra-core --channel conda-forge/label/hydra-core_rc
 ```
 
 </details>
@@ -173,14 +173,16 @@ Updating hydra-core-feedstock
 If you would like to improve the hydra-core recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
-opportunity to confirm that the changes result in a successful build. Once
-merged, the recipe will be re-built and uploaded automatically to the
-`conda-forge` channel, whereupon the built conda packages will be available for
-everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/hydra-core-feedstock are
-immediately built and any created packages are uploaded, so PRs should be based
-on branches in forks, and branches in the main repository should only be used to
-build distinct package versions.
+opportunity to confirm that the changes result in a successful build.
+
+For Hydra 1.4 releases and rebuilds, target PRs at the
+`1.4_branch` release branch. After a merge, builds from this branch publish
+to `conda-forge/label/hydra-core_rc`. Release candidates use the package-specific
+`hydra-core_rc` label; stable releases use the normal channel. See
+[CONTRIBUTING.md](CONTRIBUTING.md) for switching the publication target.
+
+Submit changes from a fork and target the appropriate branch. See
+[CONTRIBUTING.md](CONTRIBUTING.md) for branch and rerendering instructions.
 
 In order to produce a uniquely identifiable distribution:
  * If the version of a package **is not** being increased, please add or increase
