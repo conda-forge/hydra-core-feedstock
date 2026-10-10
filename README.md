@@ -37,6 +37,7 @@ Current release info
 Installing hydra-core
 =====================
 
+
 Installing `hydra-core` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
@@ -76,6 +77,8 @@ pixi global install hydra-core
 ```
 
 </details>
+
+
 
 Search package versions
 -----------------------
