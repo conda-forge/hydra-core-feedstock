@@ -37,45 +37,24 @@ Current release info
 Installing hydra-core
 =====================
 
-Installing `hydra-core` from the `conda-forge/label/hydra-core_rc` channel can be achieved by adding `conda-forge/label/hydra-core_rc` to your channels with:
 
-```
-conda config --add channels conda-forge/label/hydra-core_rc
-conda config --set channel_priority strict
-```
+This branch publishes prereleases to `conda-forge/label/hydra-core_rc`. Opt in for an
+individual installation while taking dependencies from `conda-forge`:
 
-How to use
-----------
-
-<details>
-<summary>With conda</summary>
-
-```
-conda install hydra-core
+```sh
+conda install -c conda-forge/label/hydra-core_rc -c conda-forge hydra-core
 ```
 
-</details>
+With mamba:
 
-<details>
-<summary>With mamba</summary>
-
-```
-mamba install hydra-core
+```sh
+mamba install -c conda-forge/label/hydra-core_rc -c conda-forge hydra-core
 ```
 
-</details>
+To select a specific release candidate, append `=VERSION` to the package name.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for a versioned example. These commands
+leave your configured channels unchanged.
 
-<details>
-<summary>With pixi</summary>
-
-```
-# for adding to your local project
-pixi add hydra-core
-# for installing globally
-pixi global install hydra-core
-```
-
-</details>
 
 Search package versions
 -----------------------

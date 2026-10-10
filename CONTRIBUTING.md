@@ -21,10 +21,12 @@ Keep these pins when applying migrations so global pinning cannot raise them.
    checksum, and dependencies. Reset the build number to zero for a new version;
    increment it when rebuilding the same version. Verify PyPI source checksums
    against its release metadata when using a PyPI archive.
-3. Check `channel_targets` in `recipe/conda_build_config.yaml` against the
-   intended publication label. Stable releases publish to `conda-forge main`;
-   release candidates publish to `conda-forge hydra-core_rc`.
-4. Rerender with `conda smithy rerender` and test locally with
+3. Check the `channel_targets` override in `recipe/conda_build_config.yaml`
+   against the intended publication label. Stable inputs with no override
+   inherit `conda-forge main`; release candidates use an explicit
+   `channel_targets` value of `conda-forge hydra-core_rc`.
+4. Rerender with `conda smithy rerender`, verify the effective
+   `channel_targets` in generated `.ci_support`, and test locally with
    `python build-locally.py linux_64_`.
 5. Open a PR from your fork targeting the matching feedstock release branch.
    Check CI before merging. Releases and recipe rebuilds do not target `main`.
@@ -48,11 +50,14 @@ channel. For example, install the first Hydra 1.4 release candidate with:
 conda install -c conda-forge/label/hydra-core_rc -c conda-forge "hydra-core=1.4.0rc1"
 ```
 
+Stable inputs with no `channel_targets` override inherit `conda-forge main`.
 For a stable release, change the version, source, checksum, and build number
-as usual, and change `channel_targets` to `[conda-forge main]` in the same PR.
-Keep `upload_on_branch` pointing at the release-line branch. Rerender and verify
-the generated `.ci_support` channel targets before merging. Switching the
-target affects new builds; it does not relabel previously published packages.
+as usual. When promoting an RC to stable, replace its explicit `hydra-core_rc`
+override with explicit `channel_targets: [conda-forge main]` in the same PR.
+Keep `upload_on_branch` pointing at the release-line branch. Rerender and
+verify the effective target in generated `.ci_support` before merging.
+Switching the target affects new builds; it does not relabel previously
+published packages.
 
 ## Bot migrations and branch lifecycle
 
